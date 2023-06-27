@@ -1,0 +1,320 @@
+<html>
+    <head>
+        <title>Job Application Tracker</title>
+        <link rel = "stylesheet" type = "text/css" href = "static/app.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            body{
+                background: #8afff1;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- type in useername to display all their applied positions -->
+        <!-- type in job and connect it to username -->
+        <!-- type in new username to add to database -->
+        <!-- update status of job and connect it to user -->
+        
+        <div class="container">
+        <div class="column">
+        <div class="div">
+            <h1>Add User</h1>
+        
+            <label>Name</label>
+            <input type="text" id="add_name"></input>
+            <button id="submit" class="button" onclick="add_user(); return false;">Submit</button>
+        
+            <div id="successAdd"></div>
+        </div>
+        <script>
+            function add_user(){
+                var text = document.getElementById("add_name").value;
+
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("successAdd").innerHTML = xhttp.responseText;
+                    }
+                    if (successAdd.innerHTML.trim() !== "") {
+                        successAdd.classList.add("success");
+                    } 
+                    else {
+                        successAdd.classList.remove("success");
+                    }
+                };
+
+                xhttp.open("GET", '/add_users?add_name=' + text, true);
+                xhttp.send();
+
+            }
+        </script>
+
+        <div class="div">
+            <h1>Add & Remove Job</h1>
+       
+            <form>
+                <label>Name</label>
+                <input type="text" id="nameJ"></input>
+                <label>Job</label>
+                <input type="text" id="job_name"></input>
+                <button type="button" id="submit" class="button-add" onclick="add_job(); return false;">Add</button>
+                <button type="button" id="submit" class="button-remove" onclick="remove_job(); return false;">Remove</button>
+            </form>
+            <div id="successJob"></div>
+        </div>
+
+        <script>
+            function add_job(){
+                var text1 = document.getElementById("nameJ").value;
+                var text2 = document.getElementById("job_name").value;
+
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200) {
+                        document.getElementById("successJob").innerHTML = xhttp.responseText;
+                    }
+                    if (successJob.innerHTML.trim() !== "") {
+                        successJob.classList.add("success");
+                    } 
+                    else {
+                        successJob.classList.remove("success");
+                    }
+                };
+                xhttp.open("GET", `/add_jobs?nameJ=${text1}&job_name=${text2}`, true);
+                xhttp.send();
+            }
+
+            function remove_job(){
+                var text1 = document.getElementById("nameJ").value;
+                var text2 = document.getElementById("job_name").value;
+
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200) {
+                        document.getElementById("successJob").innerHTML = xhttp.responseText;
+                    }
+                    if (successJob.innerHTML.trim() !== "") {
+                        successJob.classList.add("success");
+                    } 
+                    else {
+                        successJob.classList.remove("success");
+                    }
+                };
+                xhttp.open("GET", `/remove_job?nameJ=${text1}&job_name=${text2}`, true);
+                xhttp.send();
+            }
+        </script>
+
+        <div class="div">
+            <h1>Update Job Status</h1>
+       
+            <form>
+            <label for="nameU">Name</label>
+            <input type="text" id="nameU"></input>
+            <label for="job">Job</label>
+            <input type="text" id="job"></input>
+            <button type="button" id="submit" class="button" onclick="update_job(); return false;">Submit</button>
+            <div class="radio-group">
+                <input type="radio" id="accept" name="status" value="Accepted">
+                <label for="accept">Accepted</label>
+
+                <input type="radio" id="rejected" name="status" value="Rejected">
+                <label for="rejected">Rejected</label>
+            </div>
+        
+            </form>
+            <div id="successUpdate"></div>
+        </div>
+        <script>
+            function update_job(){
+                var text1 = document.getElementById("nameU").value;
+                var text2 = document.getElementById("job").value;
+                // var text3 = document.getElementByN("status").value;
+                var text3 = document.querySelector('input[name="status"]:checked').value;
+
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200) {
+                        document.getElementById("successUpdate").innerHTML = xhttp.responseText;
+                    }
+                    if (successUpdate.innerHTML.trim() !== "") {
+                        successUpdate.classList.add("success");
+                    } 
+                    else {
+                        successUpdate.classList.remove("success");
+                    }
+                };
+                
+                
+
+                xhttp.open("GET", `/update_job?nameU=${text1}&job=${text2}&status=${text3}`, true);
+                xhttp.send();
+            }
+        </script>
+
+        <div class="div">
+            <h1>View Jobs</h1>
+        
+            <label>Name</label>
+            <input type="text" id="nameV"></input>
+            <button type="button" id="submit" onclick="view_job(); return false;" class="button">All</button>
+            <button type="button" id="submit" onclick="filter_status('Accepted'); return false;" class="button">Accepted</button>
+            <button type="button" id="submit" onclick="filter_status('Rejected'); return false;" class="button">Rejected</button>
+            <button type="button" id="submit" onclick="filter_status('Pending'); return false;" class="button">Pending</button>
+            <div id="successView"></div>
+        </div>
+        <script>
+            function view_job(){
+                var text = document.getElementById("nameV").value;
+
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState ==  4 && this.status == 200) {
+                        // document.getElementById("successView").innerHTML = xhttp.responseText;
+                        var json = JSON.parse(xhttp.responseText); //turns response text(return value from database in this case) into json object
+
+                        var table = document.createElement('table');
+                        table.classList.add('table','view-table');
+
+                        // Create table header
+                        var thead = document.createElement('thead');
+                        var headerRow = document.createElement('tr');
+                        var headerCell1 = document.createElement('th');
+                        var headerCell2 = document.createElement('th');
+                        headerCell1.textContent = 'Job Name';
+                        headerCell2.textContent = 'Job Status';
+                        headerRow.appendChild(headerCell1);
+                        headerRow.appendChild(headerCell2);
+                        thead.appendChild(headerRow);
+                        table.appendChild(thead);
+
+                        // Populate table rows with job data
+                        for (let i = 0; i < json.length; i++) {
+                            var tbody = document.createElement('tbody');
+                            var jobRow = document.createElement('tr');
+                            var jobCell1 = document.createElement('td');
+                            var jobCell2 = document.createElement('td');
+                            jobCell1.textContent = json[i][0];
+                            jobCell2.textContent = json[i][1];
+                            jobRow.appendChild(jobCell1);
+                            jobRow.appendChild(jobCell2);
+                            tbody.appendChild(jobRow);
+                            table.appendChild(tbody);
+                        }
+
+                        document.getElementById("successView").innerHTML = "";
+                        document.getElementById("successView").appendChild(table);
+
+                        // document.getElementById("successView").innerHTML = "";
+                        // for(let i = 0; i<json.length; i++)
+                        // {
+                        //     var create_div = document.createElement('div'); //create a div var 
+                        //     create_div.textContent = `${json[i][0]}  ${json[i][1]}`; //using textContent to update the content of the div
+                        //     document.getElementById("successView").appendChild(create_div);
+                        //     // document.getElementById("successView").innerHTML += `${json[i][0]}  ${json[i][1]}`;
+                        // }
+                        if (successView.innerHTML.trim() !== "") {
+                        successView.classList.add("success-view");
+                        } 
+                        else {
+                            successView.classList.remove("success-view");
+                        }
+                    }
+                };
+                xhttp.open("GET", `/view_job?nameV=` + text, true);
+                xhttp.send();
+            }
+
+            function filter_status(status){
+                var text = document.getElementById("nameV").value; 
+
+                var xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function(){
+                    if(this.readyState ==  4 && this.status == 200) {
+                        var json = JSON.parse(xhttp.responseText);
+
+                        function accepted(job)
+                        {
+                            return job[1] == status;
+                        }
+                        var filteredJobs = json.filter(accepted);
+                        
+                        var table = document.createElement('table');
+                        table.classList.add('table', 'view-table');
+
+                        // Create table header
+                        var thead = document.createElement('thead');
+                        var headerRow = document.createElement('tr');
+                        var headerCell1 = document.createElement('th');
+                        var headerCell2 = document.createElement('th');
+                        headerCell1.textContent = 'Job Name';
+                        headerCell2.textContent = 'Job Status';
+                        headerRow.appendChild(headerCell1);
+                        headerRow.appendChild(headerCell2);
+                        thead.appendChild(headerRow);
+                        table.appendChild(thead);
+
+                        // Populate table rows with filtered job data
+                        for (let i = 0; i < filteredJobs.length; i++) {
+                            var tbody = document.createElement('tbody');
+                            var jobRow = document.createElement('tr');
+                            var jobCell1 = document.createElement('td');
+                            var jobCell2 = document.createElement('td');
+                            jobCell1.textContent = filteredJobs[i][0];
+                            jobCell2.textContent = filteredJobs[i][1];
+                            jobRow.appendChild(jobCell1);
+                            jobRow.appendChild(jobCell2);
+                            tbody.appendChild(jobRow);
+                            table.appendChild(tbody);
+                        }
+
+                        document.getElementById("successView").innerHTML = "";
+                        document.getElementById("successView").appendChild(table);
+                        // document.getElementById("successView").innerHTML = ""; //clear the div
+                        // for(let i = 0; i < filteredJobs.length; i++) //print out the elements because json is an array of an array
+                        // {
+                        //     var create_div = document.createElement('div');
+                        //     create_div.textContent = `${filteredJobs[i][0]}  ${filteredJobs[i][1]}`;
+                        //     document.getElementById("successView").appendChild(create_div);
+                        //     // document.getElementById("successView").innerHTML += `${filteredJobs[i][0]}  ${filteredJobs[i][1]}`;
+                        // }
+                    }
+                    if (successView.innerHTML.trim() !== "") {
+                        successView.classList.add("success-view");
+                    } 
+                    else {
+                        successView.classList.remove("success-view");
+                    }
+                };
+                xhttp.open("GET", `/view_job?nameV=` + text, true); 
+                xhttp.send();
+            }
+
+            
+        </script>
+
+        <!-- <div>
+            <h1>Remove Job</h1>
+        </div>
+        <form>
+            <label>Name</label>
+            <input type="text" id="nameR"></input>
+            <label>Job</label>
+            <input type="text" id="job_nameR"></input>
+            <button type="button" id="submit" onclick="remove_job(); return false;">Submit</button>
+        </form>
+        <div id="successRemove"></div> -->
+
+        
+        </div>
+    </div>
+    </body>
+</html>
