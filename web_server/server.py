@@ -3,6 +3,8 @@ import database
 
 app = Flask(__name__, static_folder='static')
 
+# database.user_database()
+
 @app.route("/")
 def home():
     return render_template("index.html")
