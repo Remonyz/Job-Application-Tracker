@@ -1,28 +1,5 @@
 import sqlite3
 
-conn = sqlite3.connect('user.db')
-c = conn.cursor()
-c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='user'")
-table_exists = c.fetchone()
-if not table_exists:
-    c.execute("""CREATE TABLE user(
-        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT,
-        UNIQUE(username)
-    )""")
-
-    c.execute("""CREATE TABLE jobs(
-        job_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        job_name TEXT,
-        job_status TEXT,
-        user_jobs INTEGER NOT NULL, 
-        FOREIGN KEY (user_jobs) REFERENCES user (user_id)
-    )""")
-
-conn.commit()
-conn.close()
-
-
 def user_database():
     conn = sqlite3.connect('user.db')
     c = conn.cursor()
@@ -44,12 +21,7 @@ def user_database():
     )""")
 
 
-def check_user(user):
-    conn = sqlite3.connect('user.db')
-    c = conn.cursor()
-    c.execute(f"SELECT COUNT(*) FROM user WHERE username = '{user}'")
-    count = c.fetchone()[0]
-    return count > 0 #return count if count if bigger than 0
+
 
 def add_user(user):
     conn = sqlite3.connect('user.db')

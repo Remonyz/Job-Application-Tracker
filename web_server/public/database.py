@@ -44,12 +44,7 @@ def user_database():
     )""")
 
 
-def check_user(user):
-    conn = sqlite3.connect('user.db')
-    c = conn.cursor()
-    c.execute(f"SELECT COUNT(*) FROM user WHERE username = '{user}'")
-    count = c.fetchone()[0]
-    return count > 0 #return count if count if bigger than 0
+
 
 def add_user(user):
     conn = sqlite3.connect('user.db')

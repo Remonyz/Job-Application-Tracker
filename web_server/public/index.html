@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Job Application Tracker</title>
-        <link rel = "stylesheet" type = "text/css" href = "static/app.css">
+        <link rel = "stylesheet" type = "text/css" href = "app.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -19,7 +19,7 @@
         
         <div class="container">
         <div class="column">
-        <!-- <div class="div">
+        <div class="div">
             <h1>Add User</h1>
         
             <label>Name</label>
@@ -47,11 +47,11 @@
                     }
                 };
 
-                xhttp.open("GET", '/add_users?add_name=' + text, true);
+                xhttp.open("POST", '/add_users?add_name=' + text, true);
                 xhttp.send();
 
             }
-        </script> -->
+        </script>
 
         <div class="div">
             <h1>Add & Remove Job</h1>
@@ -65,7 +65,6 @@
                 <button type="button" id="submit" class="button-remove" onclick="remove_job(); return false;">Remove</button>
             </form>
             <div id="successJob"></div>
-            <div id="successAdd"></div>
         </div>
 
         <script>
@@ -87,7 +86,7 @@
                         successJob.classList.remove("success");
                     }
                 };
-                xhttp.open("GET", `/add_jobs?nameJ=${text1}&job_name=${text2}`, true);
+                xhttp.open("POST", `/add_jobs?nameJ=${text1}&job_name=${text2}`, true);
                 xhttp.send();
             }
 
@@ -109,31 +108,8 @@
                         successJob.classList.remove("success");
                     }
                 };
-                xhttp.open("GET", `/remove_job?nameJ=${text1}&job_name=${text2}`, true);
+                xhttp.open("POST", `/remove_job?nameJ=${text1}&job_name=${text2}`, true);
                 xhttp.send();
-            }
-
-            function add_user(){
-                var text = document.getElementById("nameJ").value;
-
-                var xhttp = new XMLHttpRequest();
-
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("successAdd").innerHTML = xhttp.responseText;
-                    }
-                    var successAdd = document.getElementById("successAdd");
-                    if (successAdd.innerHTML.trim() !== "") {
-                        successAdd.classList.add("success");
-                    } 
-                    else {
-                        successAdd.classList.remove("success");
-                    }
-                };
-
-                xhttp.open("GET", '/add_users?nameJ=' + text, true);
-                xhttp.send();
-
             }
         </script>
 
@@ -181,7 +157,7 @@
                 
                 
 
-                xhttp.open("GET", `/update_job?nameU=${text1}&job=${text2}&status=${text3}`, true);
+                xhttp.open("POST", `/update_job?nameU=${text1}&job=${text2}&status=${text3}`, true);
                 xhttp.send();
             }
         </script>
@@ -216,13 +192,10 @@
                         var headerRow = document.createElement('tr');
                         var headerCell1 = document.createElement('th');
                         var headerCell2 = document.createElement('th');
-                        var headerCell3 = document.createElement('th'); //new column for action to remove
                         headerCell1.textContent = 'Job Name';
                         headerCell2.textContent = 'Job Status';
-                        headerCell3.textContent = 'Action';
                         headerRow.appendChild(headerCell1);
                         headerRow.appendChild(headerCell2);
-                        headerRow.appendChild(headerCell3);
                         thead.appendChild(headerRow);
                         table.appendChild(thead);
 
@@ -232,18 +205,10 @@
                             var jobRow = document.createElement('tr');
                             var jobCell1 = document.createElement('td');
                             var jobCell2 = document.createElement('td');
-                            var jobCell3 = document.createElement('td'); //add row for removve button
                             jobCell1.textContent = json[i][0];
                             jobCell2.textContent = json[i][1];
-
-                            var removeButton = document.createElement('button'); //create button for remove
-                            removeButton.textContent = 'Remove';
-                            removeButton.classList.add('button-remove')
-                            
-                            jobCell3.appendChild(removeButton); //apend the btton to the cell
                             jobRow.appendChild(jobCell1);
                             jobRow.appendChild(jobCell2);
-                            jobRow.appendChild(jobCell3); //append remove row
                             tbody.appendChild(jobRow);
                             table.appendChild(tbody);
                         }
@@ -268,8 +233,7 @@
                         }
                     }
                 };
-            
-                xhttp.open("GET", `/view_job?nameV=` + text, true);
+                xhttp.open("POST", `/view_job?nameV=` + text, true);
                 xhttp.send();
             }
 
@@ -336,7 +300,7 @@
                         successView.classList.remove("success-view");
                     }
                 };
-                xhttp.open("GET", `/view_job?nameV=` + text, true); 
+                xhttp.open("POST", `/view_job?nameV=` + text, true); 
                 xhttp.send();
             }
 

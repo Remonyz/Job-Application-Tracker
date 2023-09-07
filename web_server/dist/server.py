@@ -3,8 +3,6 @@ import database
 
 app = Flask(__name__, static_folder='static')
 
-# database.user_database()
-
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -19,12 +17,9 @@ def add_users():
 def add_jobs():
     nameJ = request.args["nameJ"]
     job_name = request.args["job_name"]
-    if not database.check_user(nameJ):
-        add_name = database.add_user(nameJ)
-        return f'Successfully Added: {nameJ}'
     user_id = database.user_id(nameJ)
     add_job = database.add_job(user_id, job_name)
-    return f'Successfully Added: {job_name} & {nameJ}'
+    return f'Successfully Added: {job_name}'
 
 @app.route("/update_job")
 def update_job():
@@ -42,10 +37,6 @@ def view_job():
     user_id = database.user_id(nameV)
     view_job = database.view_job(user_id)
     return view_job
-
-# @app.route("/view_users")
-# def view_users():
-
 
 @app.route("/remove_job")
 def remove_job():

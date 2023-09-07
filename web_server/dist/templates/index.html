@@ -19,7 +19,7 @@
         
         <div class="container">
         <div class="column">
-        <!-- <div class="div">
+        <div class="div">
             <h1>Add User</h1>
         
             <label>Name</label>
@@ -38,7 +38,6 @@
                     if (this.readyState == 4 && this.status == 200) {
                         document.getElementById("successAdd").innerHTML = xhttp.responseText;
                     }
-                    var successAdd = document.getElementById("successAdd");
                     if (successAdd.innerHTML.trim() !== "") {
                         successAdd.classList.add("success");
                     } 
@@ -51,7 +50,7 @@
                 xhttp.send();
 
             }
-        </script> -->
+        </script>
 
         <div class="div">
             <h1>Add & Remove Job</h1>
@@ -65,7 +64,6 @@
                 <button type="button" id="submit" class="button-remove" onclick="remove_job(); return false;">Remove</button>
             </form>
             <div id="successJob"></div>
-            <div id="successAdd"></div>
         </div>
 
         <script>
@@ -79,7 +77,6 @@
                     if(this.readyState == 4 && this.status == 200) {
                         document.getElementById("successJob").innerHTML = xhttp.responseText;
                     }
-                    var successJob = document.getElementById("successJob");
                     if (successJob.innerHTML.trim() !== "") {
                         successJob.classList.add("success");
                     } 
@@ -101,7 +98,6 @@
                     if(this.readyState == 4 && this.status == 200) {
                         document.getElementById("successJob").innerHTML = xhttp.responseText;
                     }
-                    var successJob = document.getElementById("successJob");
                     if (successJob.innerHTML.trim() !== "") {
                         successJob.classList.add("success");
                     } 
@@ -111,29 +107,6 @@
                 };
                 xhttp.open("GET", `/remove_job?nameJ=${text1}&job_name=${text2}`, true);
                 xhttp.send();
-            }
-
-            function add_user(){
-                var text = document.getElementById("nameJ").value;
-
-                var xhttp = new XMLHttpRequest();
-
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("successAdd").innerHTML = xhttp.responseText;
-                    }
-                    var successAdd = document.getElementById("successAdd");
-                    if (successAdd.innerHTML.trim() !== "") {
-                        successAdd.classList.add("success");
-                    } 
-                    else {
-                        successAdd.classList.remove("success");
-                    }
-                };
-
-                xhttp.open("GET", '/add_users?nameJ=' + text, true);
-                xhttp.send();
-
             }
         </script>
 
@@ -170,7 +143,6 @@
                     if(this.readyState == 4 && this.status == 200) {
                         document.getElementById("successUpdate").innerHTML = xhttp.responseText;
                     }
-                    var successUpdate = document.getElementById("successUpdate");
                     if (successUpdate.innerHTML.trim() !== "") {
                         successUpdate.classList.add("success");
                     } 
@@ -216,13 +188,10 @@
                         var headerRow = document.createElement('tr');
                         var headerCell1 = document.createElement('th');
                         var headerCell2 = document.createElement('th');
-                        var headerCell3 = document.createElement('th'); //new column for action to remove
                         headerCell1.textContent = 'Job Name';
                         headerCell2.textContent = 'Job Status';
-                        headerCell3.textContent = 'Action';
                         headerRow.appendChild(headerCell1);
                         headerRow.appendChild(headerCell2);
-                        headerRow.appendChild(headerCell3);
                         thead.appendChild(headerRow);
                         table.appendChild(thead);
 
@@ -232,18 +201,10 @@
                             var jobRow = document.createElement('tr');
                             var jobCell1 = document.createElement('td');
                             var jobCell2 = document.createElement('td');
-                            var jobCell3 = document.createElement('td'); //add row for removve button
                             jobCell1.textContent = json[i][0];
                             jobCell2.textContent = json[i][1];
-
-                            var removeButton = document.createElement('button'); //create button for remove
-                            removeButton.textContent = 'Remove';
-                            removeButton.classList.add('button-remove')
-                            
-                            jobCell3.appendChild(removeButton); //apend the btton to the cell
                             jobRow.appendChild(jobCell1);
                             jobRow.appendChild(jobCell2);
-                            jobRow.appendChild(jobCell3); //append remove row
                             tbody.appendChild(jobRow);
                             table.appendChild(tbody);
                         }
@@ -259,7 +220,6 @@
                         //     document.getElementById("successView").appendChild(create_div);
                         //     // document.getElementById("successView").innerHTML += `${json[i][0]}  ${json[i][1]}`;
                         // }
-                        var successView = document.getElementById("successView");
                         if (successView.innerHTML.trim() !== "") {
                         successView.classList.add("success-view");
                         } 
@@ -268,7 +228,6 @@
                         }
                     }
                 };
-            
                 xhttp.open("GET", `/view_job?nameV=` + text, true);
                 xhttp.send();
             }
@@ -328,7 +287,6 @@
                         //     // document.getElementById("successView").innerHTML += `${filteredJobs[i][0]}  ${filteredJobs[i][1]}`;
                         // }
                     }
-                    var successView = document.getElementById("successView");
                     if (successView.innerHTML.trim() !== "") {
                         successView.classList.add("success-view");
                     } 
