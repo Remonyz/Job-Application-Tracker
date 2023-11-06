@@ -1,0 +1,222 @@
+body {
+    font-size: larger;
+    
+}
+
+input {
+    writing-mode: horizontal-tb !important;
+    
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: transparent;
+    margin: 0em;
+    padding: 1px 2px;
+    /* border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial; */
+    border: 2px solid #d6feff;
+}
+
+select {
+    writing-mode: horizontal-tb !important;
+    
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: transparent;
+    margin: 0em;
+    padding: 1px 2px;
+    /* border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial; */
+    border: 2px solid #d6feff;
+}
+
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.column {
+max-width: 2000px;
+margin: 10px auto;
+border-radius: 44px;
+background: #23d1ce;
+box-shadow:  41px 41px 82px #0e5452,
+             -41px -41px 82px #38ffff;
+padding: 100px;
+}
+
+.div {
+    color: #d6feff;
+}
+
+.div h1{
+    color: white;
+}
+
+.success {
+    border-radius: 50px;
+    background: #23afd1;
+    box-shadow:  20px 20px 60px #0e4654,
+                -20px -20px 60px #38ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: 5px;
+    color: white;
+}
+
+.view-table {
+    color: white;
+}
+
+.success-view {
+    border-radius: 15px;
+    background: #23afd1;
+    box-shadow:  20px 20px 60px #0e4654,
+                -20px -20px 60px #38ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: 20px;
+    color: white;
+    margin-top: 10px;
+}
+
+.radio-group {
+display: flex;
+align-items: center;
+}
+
+.radio-group input[type="radio"] {
+display: none;
+}
+
+.radio-group label {
+position: relative;
+padding-left: 30px;
+margin-right: 10px;
+cursor: pointer;
+font-size: 16px;
+}
+
+.radio-group label:before {
+content: "";
+position: absolute;
+left: 0;
+top: 50%;
+transform: translateY(-50%);
+width: 20px;
+height: 20px;
+border-radius: 50%;
+border: 2px solid white;
+}
+
+.radio-group input[type="radio"]:checked + label:before {
+background-color: #2196f3;
+border-color: #2196f3;
+}
+
+.radio-group input[type="radio"]:checked + label:after {
+content: "";
+position: absolute;
+left: 5px;
+top: 50%;
+transform: translateY(-50%);
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background-color: #fff;
+}
+
+.button {
+    background-color: transparent;
+    border-radius: 20%;
+    border: 2px solid white;
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #2196f3;
+    color: white;
+}
+
+.button:focus {
+    background-color: #2196f3;
+    color: white;
+}
+
+.button-add {
+    background-color: transparent;
+    border-radius: 20%;
+    border: 2px solid #9afb98;
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    color: #9afb98
+}
+
+.button-add:hover {
+    background-color: #9afb98;
+    color: white;
+}
+
+.button-add:focus {
+    background-color: #9afb98;
+    color: white;
+}
+
+.button-remove {
+    background-color: transparent;
+    border-radius: 20%;
+    border: 2px solid #f76e64;
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    color: #f76e64
+}
+
+.button-remove:hover {
+    background-color: #f76e64;
+    color: white;
+}
+
+.button-remove:focus {
+    background-color: #f76e64;
+    color: white;
+}
+
+input[disabled] {
+    border: 2px solid #f76e64;
+    
+}
